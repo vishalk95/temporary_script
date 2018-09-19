@@ -12,14 +12,13 @@ cd ../..
 cd frameworks/opt/tele*
 git remote add vk https://github.com/vishalk95/android_frameworks_opt_telephony_mtk
 git fetch vk
-git cherry-pick 0ce8411ae911534b60f8c3e2820dd457e6e2fcec 75416fed7783b3262d9762760efa8136490c92ad
-cd ../../../
+git cherry-pick 0dad14f3125859db6bcbdb6c17aa03c0088213ad
 ########## system/core ##############
 cd system/core
 git remote add vk https://github.com/vishalk95/android_system_core_mtk
 git fetch vk
 git cherry-pick 60d73219c4eb9f1e9ef3f8b3e4f61f711afabc65^..eaabe2d2946c3df571a1de57405d8019b09225b8
-git apply -v ../device/leeco/x3/patches/system/core/0001-restore-support-for-early_suspend.patch
+git apply -v ../../device/leeco/x3/patches/system/core/0001-restore-support-for-early_suspend.patch
 cd ../..
 ########### hardware/interfaces ###########
 cd hardware/interfaces
