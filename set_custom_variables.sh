@@ -7,6 +7,6 @@ echo 'export USE_CCACHE=1' >> ~/.bashrc
 ccache -M 60G
 echo "set out ccache"
 echo "Configure Jack to allocate a sufficient amount of memory"
-echo "export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx6G""
+echo 'export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx6G"' >> ~/.bashrc
 echo "Configured Jack"
 echo "Setout Custom Variables Successfully"
