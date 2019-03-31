@@ -1,0 +1,60 @@
+From e88e66bd9c2c1801bb78c8bd0b5a85fd22db4f15 Mon Sep 17 00:00:00 2001
+From: vishalk17 <vishalkapadi95@gmail.com>
+Date: Sat, 30 Mar 2019 19:46:56 +0000
+Subject: [PATCH] fu
+
+Change-Id: Id7723bfb8da74fd0fba7c90613f400d09927195f
+---
+ core/jni/fd_utils.cpp                         |  1 +
+ .../server/camera/CameraServiceProxy.java     | 23 -------------------
+ 2 files changed, 1 insertion(+), 23 deletions(-)
+
+diff --git a/core/jni/fd_utils.cpp b/core/jni/fd_utils.cpp
+index 92a542676bc..d15e4864ffd 100644
+--- a/core/jni/fd_utils.cpp
++++ b/core/jni/fd_utils.cpp
+@@ -43,6 +43,7 @@ static const char* kPathWhitelist[] = {
+   "/dev/ion",
+   "/dev/dri/renderD129", // Fixes b/31172436
+   "/system/framework/org.lineageos.platform-res.apk",
++  "/proc/ged",
+ };
+ 
+ static const char kFdPath[] = "/proc/self/fd";
+diff --git a/services/core/java/com/android/server/camera/CameraServiceProxy.java b/services/core/java/com/android/server/camera/CameraServiceProxy.java
+index 3133a51a5fb..a8f5487853c 100644
+--- a/services/core/java/com/android/server/camera/CameraServiceProxy.java
++++ b/services/core/java/com/android/server/camera/CameraServiceProxy.java
+@@ -342,29 +342,6 @@ public class CameraServiceProxy extends SystemService
+     private boolean notifyMediaserverLocked(int eventType, Set<Integer> updatedUserHandles) {
+         // Forward the user switch event to the native camera service running in the mediaserver
+         // process.
+-        if (mCameraServiceRaw == null) {
+-            IBinder cameraServiceBinder = getBinderService(CAMERA_SERVICE_BINDER_NAME);
+-            if (cameraServiceBinder == null) {
+-                Slog.w(TAG, "Could not notify mediaserver, camera service not available.");
+-                return false; // Camera service not active, cannot evict user clients.
+-            }
+-            try {
+-                cameraServiceBinder.linkToDeath(this, /*flags*/ 0);
+-            } catch (RemoteException e) {
+-                Slog.w(TAG, "Could not link to death of native camera service");
+-                return false;
+-            }
+-
+-            mCameraServiceRaw = ICameraService.Stub.asInterface(cameraServiceBinder);
+-        }
+-
+-        try {
+-            mCameraServiceRaw.notifySystemEvent(eventType, toArray(updatedUserHandles));
+-        } catch (RemoteException e) {
+-            Slog.w(TAG, "Could not notify mediaserver, remote exception: " + e);
+-            // Not much we can do if camera service is dead.
+-            return false;
+-        }
+         return true;
+     }
+ 
+-- 
+2.17.1
+
